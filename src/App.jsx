@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import Card from "react-bootstrap/Card";
 
 import Countries from "./components/Countries";
 import country from "./services/country";
+import Header from "./components/Header";
 const App = () => {
   const [countries, setCountries] = useState([]);
   const [filter, setFilter] = useState("");
@@ -14,10 +16,22 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      find countries <input value={filter} onChange={(e) => setFilter(e.target.value)} />
-      <Countries countries={countries} filter={filter} setFilter={setFilter} api_key={api_key} />
-    </div>
+    <section>
+      <Header />
+      <div className="main-container">
+        <h1>Countries and Weather</h1>
+        <Card className="main-card">
+          <Card.Body>
+            <Card.Title>Find countries</Card.Title>
+            <Card.Text>
+              <input value={filter} onChange={(e) => setFilter(e.target.value)} />
+            </Card.Text>
+
+            <Countries countries={countries} filter={filter} setFilter={setFilter} api_key={api_key} />
+          </Card.Body>
+        </Card>
+      </div>
+    </section>
   );
 };
 
