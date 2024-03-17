@@ -1,35 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Countries from "./components/Countries";
+import country from "./services/country";
+const App = () => {
+  const [countries, setCountries] = useState([]);
+  const [filter, setFilter] = useState("");
+  const api_key = import.meta.env.VITE_SOME_KEY;
+
+  useEffect(() => {
+    country.getAll().then((initialCountries) => {
+      setCountries(initialCountries);
+    });
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      find countries <input value={filter} onChange={(e) => setFilter(e.target.value)} />
+      <Countries countries={countries} filter={filter} setFilter={setFilter} api_key={api_key} />
+    </div>
+  );
+};
 
-export default App
+export default App;
