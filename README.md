@@ -27,10 +27,10 @@ This application allows users to view detailed information about different count
    npm install
    ```
 
-2. Create a .env file in the root directory and add your OpenWeather API key:
+2. Create a .env file in the root directory and add your OpenWeather API key. Start your env variable with VITE* to prevent accidentally leaking env variables to the client, only variables prefixed with VITE* are exposed to your Vite-processed code.:
 
 ```sh
-OPENWEATHER_API_KEY=your_api_key_here
+VITE_SOME_KEY=your_api_key_here
 ```
 
 3. Start the application:
